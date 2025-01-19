@@ -31,5 +31,5 @@ USER node
 # Exponer el puerto 10000 (o el puerto que necesites)
 EXPOSE $PORT
 
-# Comando para ejecutar el servidor de Express
-CMD ["node", "server.js"]
+# Comando para ejecutar el servidor de Express y station
+CMD ["sh", "-c", "node server.js & station"]
