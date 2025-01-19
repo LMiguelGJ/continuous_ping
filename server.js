@@ -16,24 +16,22 @@ app.get('/', (req, res) => {
       <html>
         <head>
           <style>
-            body { background-color: black; color: white; }
-            pre { white-space: pre-wrap; word-wrap: break-word; }
+            body { background-color: black; color: white; margin: 0; padding: 0; }
+            pre { white-space: pre-wrap; word-wrap: break-word; margin: 0; padding: 10px; }
           </style>
           <script>
-            const logFilePath = '/home/node/server.log'; // Ruta del archivo de logs
+            // Desplazarse al final del contenido cuando la página termina de cargarse
+            function scrollToBottom() {
+              window.scrollTo(0, document.body.scrollHeight);
+            }
+            
+            // Recargar la página cada 5 segundos
+            setInterval(() => {
+              window.location.reload();
+            }, 5000);
 
-            const fetchLogs = () => {
-              fetch(logFilePath)
-                .then(response => response.text())
-                .then(data => {
-                  document.querySelector('pre').textContent = data;
-                  window.scrollTo(0, document.body.scrollHeight);
-                })
-                .catch(err => console.error('Error al obtener los logs:', err));
-            };
-
-            setInterval(fetchLogs, 5000);
-            window.onload = fetchLogs; // Cargar los logs al inicio
+            // Llamar a scrollToBottom al cargar la página
+            window.onload = scrollToBottom;
           </script>
         </head>
         <body>
