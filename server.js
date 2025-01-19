@@ -10,13 +10,36 @@ app.get('/', (req, res) => {
 
 // Agregar una nueva ruta para servir los logs
 app.get('/logs', (req, res) => {
-  const logFilePath = '/home/node/logs/server.log'; // Ruta del archivo de logs
+  const logFilePath = '/home/node/server.log'; // Ruta del archivo de logs
 
-  fs.readFile(logFilePath, 'utf8', (err, data) => {
+  // Verificar si el archivo existe
+  fs.access(logFilePath, fs.constants.F_OK, (err) => {
     if (err) {
-      return res.status(500).send('Error al leer el archivo de logs');
+      return res.status(404).send('Archivo de logs no encontrado');
     }
-    res.send(`<pre>${data}</pre>`); // Enviar el contenido del log como respuesta
+
+    // Leer el archivo de logs
+    fs.readFile(logFilePath, 'utf8', (err, data) => {
+      if (err) {
+        return res.status(500).send('Error al leer el archivo de logs');
+      }
+
+      // Verificar si el contenido está corrupto (ejemplo simple)
+      if (!data || data.trim() === '') {
+        return res.status(500).send('El archivo de logs está vacío o corrupto');
+      }
+
+      res.send(`<pre>${data}</pre>`); // Enviar el contenido del log como respuesta
+    });
+  });
+  
+  // Mostrar el contenido del directorio donde se encuentra el archivo
+  fs.readdir('/home/node', (err, files) => {
+    if (err) {
+      console.error('Error al leer el directorio:', err);
+      return;
+    }
+    console.log('Contenido del directorio:', files);
   });
 });
 
