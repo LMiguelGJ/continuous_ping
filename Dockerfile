@@ -1,11 +1,14 @@
-# Usa la imagen base de filecoin-station
-FROM ghcr.io/filecoin-station/core:latest
+# Usa una imagen base adecuada, como Ubuntu
+FROM ubuntu:20.04
 
-# Configura la variable de entorno FIL_WALLET_ADDRESS
-ENV FIL_WALLET_ADDRESS=0x721bc9128e2d437eF874400D74346E538fa7D2E6
+# Instalar dependencias necesarias
+RUN apt-get update && apt-get install -y curl bash docker.io
 
-# Crea el directorio donde se montará el volumen en Railway
-RUN mkdir -p /home/node/.local/state/
+# Copiar el script al contenedor
+COPY run_gotty.sh /run_gotty.sh
 
-# Configura el punto de entrada de ejecución del servicio
-CMD ["node", "start"]
+# Dar permisos de ejecución al script
+RUN chmod +x /run_gotty.sh
+
+# Establecer el script como el comando por defecto para ejecutar cuando se inicie el contenedor
+CMD ["/bin/bash", "/run_gotty.sh"]
