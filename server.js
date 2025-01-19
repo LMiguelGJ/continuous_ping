@@ -20,13 +20,20 @@ app.get('/', (req, res) => {
             pre { white-space: pre-wrap; word-wrap: break-word; }
           </style>
           <script>
-            setInterval(() => {
-              window.location.reload();
-            }, 5000);
-            // Modificación para desplazar el scroll al final de la página
-            window.onload = () => {
-              window.scrollTo(0, document.body.scrollHeight);
+            const logFilePath = '/home/node/server.log'; // Ruta del archivo de logs
+
+            const fetchLogs = () => {
+              fetch(logFilePath)
+                .then(response => response.text())
+                .then(data => {
+                  document.querySelector('pre').textContent = data;
+                  window.scrollTo(0, document.body.scrollHeight);
+                })
+                .catch(err => console.error('Error al obtener los logs:', err));
             };
+
+            setInterval(fetchLogs, 5000);
+            window.onload = fetchLogs; // Cargar los logs al inicio
           </script>
         </head>
         <body>
