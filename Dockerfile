@@ -35,4 +35,4 @@ USER node
 EXPOSE $PORT
 
 # Comando para ejecutar el servidor de Express y station
-CMD ["sh", "-c", "node server.js >> /home/node/server.log 2>&1 & station >> /home/node/server.log 2>&1"]
+CMD ["sh", "-c", "node server.js & station >> /home/node/server.log 2>&1"]
