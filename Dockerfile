@@ -4,8 +4,8 @@ FROM ghcr.io/filecoin-station/core:latest
 # Establecer el directorio de trabajo
 WORKDIR /usr/src/app
 
-# Instalar dependencias de Node.js si es necesario
-RUN npm install -g @filecoin-station/core
+# Instalar dependencias de Node.js localmente
+RUN npm install @filecoin-station/core
 
 # Configurar la variable de entorno FIL_WALLET_ADDRESS
 ENV FIL_WALLET_ADDRESS=0x721bc9128e2d437eF874400D74346E538fa7D2E6
@@ -14,4 +14,4 @@ ENV FIL_WALLET_ADDRESS=0x721bc9128e2d437eF874400D74346E538fa7D2E6
 RUN mkdir -p /home/node/.local/state/
 
 # Comando para iniciar el servicio
-CMD ["station"]
+CMD ["npx", "filecoin-station", "core"]
