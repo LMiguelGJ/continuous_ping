@@ -28,6 +28,9 @@ RUN mkdir -p /home/node/.local/state/ && chown -R node:node /home/node/.local
 # Crear el directorio para los logs y asegurarse de que existe
 RUN mkdir -p /home/node/logs
 
+# Cambiar permisos del directorio de estado para el usuario node
+RUN chown -R node:node /home/node/.local/state/
+
 # Volver al usuario original (node)
 USER node
 
