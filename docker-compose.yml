@@ -10,4 +10,4 @@ services:
       - ./state:/home/node/.local/state/  # Asegúrate de que el directorio 'state' exista en tu máquina
     ports:
       - "10000:10000"  # Mapea el puerto del contenedor al host
-    command: ["sh", "-c", "mkdir -p /home/node/logs && node server.js & station > /home/node/logs/server.log 2>&1"]  # Crear el directorio de logs si no existe
+    command: ["sh", "-c", "mkdir -p /home/node/logs && chown node:node /home/node/logs && node server.js & station > /home/node/logs/server.log 2>&1"]  # Crear el directorio de logs y cambiar permisos
