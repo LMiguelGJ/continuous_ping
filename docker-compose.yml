@@ -6,5 +6,5 @@ services:
     environment:
       - FIL_WALLET_ADDRESS=0x721bc9128e2d437eF874400D74346E538fa7D2E6
     volumes:
-      - ./state:/home/node/.local/state/
-    command: ["node", "start"]
+      - ./state:/home/node/.local/state/  # Asegúrate de que el directorio 'state' exista en tu máquina
+    command: ["station"]  # Comando para ejecutar el servicio correctamente
