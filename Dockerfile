@@ -10,6 +10,12 @@ USER root
 # Instalar dependencias de Node.js si es necesario
 RUN npm install -g @filecoin-station/core
 
+# Copiar los archivos de tu aplicación (asegúrate de copiar tu archivo 'server.js' y 'package.json')
+COPY . .
+
+# Instalar dependencias de Node.js
+RUN npm install
+
 # Configurar la variable de entorno FIL_WALLET_ADDRESS
 ENV FIL_WALLET_ADDRESS=0x721bc9128e2d437eF874400D74346E538fa7D2E6
 
@@ -22,5 +28,5 @@ USER node
 # Exponer el puerto 10000 (o el puerto que necesites)
 EXPOSE $PORT
 
-# Comando para iniciar el servicio, asegurándose de que se vincule al puerto correcto
-CMD ["station"]
+# Comando para ejecutar el servidor de Express
+CMD ["node", "server.js"]

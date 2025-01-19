@@ -10,4 +10,4 @@ services:
       - ./state:/home/node/.local/state/  # Asegúrate de que el directorio 'state' exista en tu máquina
     ports:
       - "10000:10000"  # Mapea el puerto del contenedor al host
-    command: ["station"]  # Comando para ejecutar el servicio correctamente
+    command: ["node", "server.js"]  # Comando para ejecutar el servidor de Express
