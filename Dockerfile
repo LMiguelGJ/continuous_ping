@@ -25,6 +25,9 @@ ENV FIL_WALLET_ADDRESS=0x721bc9128e2d437eF874400D74346E538fa7D2E6
 # Crear el directorio para el estado persistente y cambiar permisos
 RUN mkdir -p /home/node/.local/state/ && chown -R node:node /home/node/.local
 
+# Crear el directorio para los logs y asegurarse de que existe
+RUN mkdir -p /home/node/logs
+
 # Volver al usuario original (node)
 USER node
 
