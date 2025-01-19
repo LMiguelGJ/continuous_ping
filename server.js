@@ -1,4 +1,5 @@
 import express from 'express';
+import fs from 'fs'; // Importar el módulo fs
 const app = express();
 const port = process.env.PORT || 4000; // Usa el puerto definido en la variable de entorno
 
@@ -9,7 +10,6 @@ app.get('/', (req, res) => {
 
 // Agregar una nueva ruta para servir los logs
 app.get('/logs', (req, res) => {
-  const fs = require('fs');
   const logFilePath = '/home/node/logs/server.log'; // Ruta del archivo de logs
 
   fs.readFile(logFilePath, 'utf8', (err, data) => {
