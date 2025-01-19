@@ -17,11 +17,16 @@ app.get('/', (req, res) => {
         <head>
           <style>
             body { background-color: black; color: white; }
+            pre { white-space: pre-wrap; word-wrap: break-word; }
           </style>
           <script>
             setInterval(() => {
               window.location.reload();
             }, 5000);
+            // Modificación para desplazar el scroll al final de la página
+            window.onload = () => {
+              window.scrollTo(0, document.body.scrollHeight);
+            };
           </script>
         </head>
         <body>
