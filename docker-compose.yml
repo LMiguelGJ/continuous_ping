@@ -5,6 +5,9 @@ services:
     container_name: station
     environment:
       - FIL_WALLET_ADDRESS=0x721bc9128e2d437eF874400D74346E538fa7D2E6
+      - PORT=10000  # Define el puerto si no está definido por Render
     volumes:
       - ./state:/home/node/.local/state/  # Asegúrate de que el directorio 'state' exista en tu máquina
+    ports:
+      - "10000:10000"  # Mapea el puerto del contenedor al host
     command: ["station"]  # Comando para ejecutar el servicio correctamente

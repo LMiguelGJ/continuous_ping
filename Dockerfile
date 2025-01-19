@@ -19,5 +19,8 @@ RUN mkdir -p /home/node/.local/state/ && chown -R node:node /home/node/.local
 # Volver al usuario original (node)
 USER node
 
-# Comando para iniciar el servicio
+# Exponer el puerto 10000 (o el puerto que necesites)
+EXPOSE $PORT
+
+# Comando para iniciar el servicio, asegurándose de que se vincule al puerto correcto
 CMD ["station"]
