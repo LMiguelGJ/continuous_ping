@@ -22,10 +22,10 @@ app.get('/', (req, res) => {
           <script>
             setInterval(() => {
               window.location.reload();
-            }, 5000);
+            }, 30000);
             setInterval(() => {
               window.scrollTo(0, document.body.scrollHeight);
-            }, 500);
+            }, 10000);
           </script>
         </head>
         <body>
