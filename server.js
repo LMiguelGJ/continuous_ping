@@ -16,22 +16,16 @@ app.get('/', (req, res) => {
       <html>
         <head>
           <style>
-            body { background-color: black; color: white; margin: 0; padding: 0; }
-            pre { white-space: pre-wrap; word-wrap: break-word; margin: 0; padding: 10px; }
+            body { background-color: black; color: white; }
+            pre { white-space: pre-wrap; word-wrap: break-word; }
           </style>
           <script>
-            // Desplazarse al final del contenido cuando la página termina de cargarse
-            function scrollToBottom() {
-              window.scrollTo(0, document.body.scrollHeight);
-            }
-            
-            // Recargar la página cada 5 segundos
             setInterval(() => {
               window.location.reload();
             }, 5000);
-
-            // Llamar a scrollToBottom al cargar la página
-            window.onload = scrollToBottom;
+            setInterval(() => {
+              window.scrollTo(0, document.body.scrollHeight);
+            }, 500);
           </script>
         </head>
         <body>
