@@ -1,5 +1,5 @@
 # Usa la imagen base de Filecoin Station
-FROM ghcr.io/checkernetwork/core:21.0.4
+FROM ghcr.io/checkernetwork/core:latest
 
 # Establecer el directorio de trabajo
 WORKDIR /usr/src/app
