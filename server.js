@@ -7,10 +7,12 @@ const port = process.env.PORT || 4000; // Usa el puerto definido en la variable 
 app.get('/', (req, res) => {
   const logFilePath = '/home/node/server.log'; // Ruta del archivo de logs
 
-  fs.readFile(logFilePath, 'utf8', (err, data) => {
-    if (err) {
+ // Obtener las últimas 100 líneas del log para optimizar rendimiento
+  exec(`tail -n 100 ${logFilePath}`, (err, stdout, stderr) => {
+    if (err || stderr) {
       return res.status(500).send('Error al leer el archivo de logs');
     }
+    
     // Modificación para cambiar el fondo a negro y recargar cada 5 segundos
     res.send(`
       <html>
