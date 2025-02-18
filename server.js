@@ -7,16 +7,18 @@ const port = process.env.PORT || 4000; // Usa el puerto definido en la variable 
 app.get('/', (req, res) => {
   const logFilePath = '/home/node/server.log'; // Ruta del archivo de logs
 
-  exec('curl https://api.myip.com', (err, stdout, stderr) => {
+  exec('curl http://ip-api.com/line', (err, stdout, stderr) => {
     let bannerContent;
     if (err) {
       bannerContent = `Error al obtener la IP pública: ${stderr}`;
     } else {
-      try {
-        const response = JSON.parse(stdout);
-        bannerContent = `Public IP: ${response.ip} (${response.country})`;
-      } catch (parseError) {
-        bannerContent = `Error al analizar la respuesta de la API: ${parseError.message}. Respuesta del servidor: ${stdout}`;
+      const lines = stdout.split('\n');
+      if (lines[0] === 'success') {
+        const country = lines[1];
+        const ip = lines[8];
+        bannerContent = `Public IP: ${ip} (${country})`;
+      } else {
+        bannerContent = `Error en la respuesta de la API: ${stdout}`;
       }
     }
 
@@ -35,7 +37,7 @@ app.get('/', (req, res) => {
             <style>
               body { background-color: black; color: white; font-family: monospace; }
               pre { white-space: pre-wrap; word-wrap: break-word; }
-              #banner { background-color: grey; text-align: center; position: fixed; top: 0; width: 100%; }
+              #banner { background-color: grey; padding: 10px; text-align: center; position: fixed; top: 0; width: 100%; }
               #content { margin-top: 50px; }
             </style>
             <script>
