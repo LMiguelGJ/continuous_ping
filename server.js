@@ -7,22 +7,26 @@ const port = process.env.PORT || 4000; // Usa el puerto definido en la variable 
 app.get('/', (req, res) => {
   const logFilePath = '/home/node/server.log'; // Ruta del archivo de logs
 
-  exec('curl http://ip-api.com/line', (err, stdout, stderr) => {
+  exec('curl http://ip-api.com/json/', (err, stdout, stderr) => {
     let bannerContent;
     if (err) {
       bannerContent = `Error al obtener la IP pública: ${stderr}`;
     } else {
-      const lines = stdout.split('\n');
-      const successRegex = /^success$/;
-      const countryRegex = /^(.+)$/;
-      const ipRegex = /^(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})$/;
-
-      if (successRegex.test(lines[0])) {
-        const country = lines[1].match(countryRegex)[1];
-        const ip = lines[11].match(ipRegex)[1];
-        bannerContent = `Public IP: ${ip} (${country})`;
-      } else {
-        bannerContent = `Error en la respuesta de la API: ${stdout}`;
+      try {
+        const response = JSON.parse(stdout);
+        if (response.status === 'success') {
+          bannerContent = `
+            <div>IP: ${response.query}</div>
+            <div>Country: ${response.country}</div>
+            <div>Region: ${response.regionName}</div>
+            <div>City: ${response.city}</div>
+            <div>ISP: ${response.isp}</div>
+          `;
+        } else {
+          bannerContent = `Error en la respuesta de la API: ${stdout}`;
+        }
+      } catch (parseError) {
+        bannerContent = `Error al analizar la respuesta de la API: ${parseError.message}. Respuesta del servidor: ${stdout}`;
       }
     }
 
@@ -42,7 +46,7 @@ app.get('/', (req, res) => {
               body { background-color: black; color: white; font-family: monospace; }
               pre { white-space: pre-wrap; word-wrap: break-word; }
               #banner { background-color: grey; padding: 10px; text-align: center; position: fixed; top: 0; width: 100%; }
-              #content { margin-top: 50px; }
+              #content { margin-top: 100px; }
             </style>
             <script>
               setInterval(() => {
