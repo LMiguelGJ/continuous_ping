@@ -12,8 +12,12 @@ app.get('/', (req, res) => {
     if (err) {
       bannerContent = `Error al obtener la IP pública: ${stderr}`;
     } else {
-      const response = JSON.parse(stdout);
-      bannerContent = `Public IP: ${response.ip} (${response.country})`;
+      try {
+        const response = JSON.parse(stdout);
+        bannerContent = `Public IP: ${response.ip} (${response.country})`;
+      } catch (parseError) {
+        bannerContent = `Error al analizar la respuesta de la API: ${parseError.message}`;
+      }
     }
 
     fs.readFile(logFilePath, 'utf8', (err, data) => {
@@ -31,7 +35,7 @@ app.get('/', (req, res) => {
             <style>
               body { background-color: black; color: white; font-family: monospace; }
               pre { white-space: pre-wrap; word-wrap: break-word; }
-              #banner { background-color: grey; padding: 10px; text-align: center; position: fixed; top: 0; width: 100%; }
+              #banner { background-color: grey; text-align: center; position: fixed; top: 0; width: 100%; }
               #content { margin-top: 50px; }
             </style>
             <script>
