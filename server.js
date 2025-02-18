@@ -13,9 +13,13 @@ app.get('/', (req, res) => {
       bannerContent = `Error al obtener la IP pública: ${stderr}`;
     } else {
       const lines = stdout.split('\n');
-      if (lines[0] === 'success') {
-        const country = lines[1];
-        const ip = lines[8];
+      const successRegex = /^success$/;
+      const countryRegex = /^(.+)$/;
+      const ipRegex = /^(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})$/;
+
+      if (successRegex.test(lines[0])) {
+        const country = lines[1].match(countryRegex)[1];
+        const ip = lines[11].match(ipRegex)[1];
         bannerContent = `Public IP: ${ip} (${country})`;
       } else {
         bannerContent = `Error en la respuesta de la API: ${stdout}`;
