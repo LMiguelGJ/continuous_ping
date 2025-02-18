@@ -1,41 +1,52 @@
 import express from 'express'; 
 import fs from 'fs';
+import { exec } from 'child_process';
 const app = express();
 const port = process.env.PORT || 4000; // Usa el puerto definido en la variable de entorno
 
 app.get('/', (req, res) => {
   const logFilePath = '/home/node/server.log'; // Ruta del archivo de logs
 
-  fs.readFile(logFilePath, 'utf8', (err, data) => {
+  exec('curl ifconfig.me', (err, stdout, stderr) => {
     if (err) {
-      return res.status(500).send('Error al leer el archivo de logs');
+      return res.status(500).send('Error al obtener la IP pública');
     }
 
-    // Dividimos el archivo en líneas y tomamos solo las últimas 100
-    const lines = data.split('\n');
-    const lastLines = lines.slice(-100).join('\n');
+    const publicIP = stdout.trim();
 
-    res.send(`
-      <html>
-        <head>
-          <style>
-            body { background-color: black; color: white; font-family: monospace; }
-            pre { white-space: pre-wrap; word-wrap: break-word; }
-          </style>
-          <script>
-            setInterval(() => {
-              window.location.reload();
-            }, 5000);
-            setInterval(() => {
-              window.scrollTo(0, document.body.scrollHeight);
-            }, 5000);
-          </script>
-        </head>
-        <body>
-          <pre>${lastLines}</pre>
-        </body>
-      </html>
-    `);
+    fs.readFile(logFilePath, 'utf8', (err, data) => {
+      if (err) {
+        return res.status(500).send('Error al leer el archivo de logs');
+      }
+
+      // Dividimos el archivo en líneas y tomamos solo las últimas 100
+      const lines = data.split('\n');
+      const lastLines = lines.slice(-100).join('\n');
+
+      res.send(`
+        <html>
+          <head>
+            <style>
+              body { background-color: black; color: white; font-family: monospace; }
+              pre { white-space: pre-wrap; word-wrap: break-word; }
+              #banner { background-color: grey; padding: 10px; text-align: center; }
+            </style>
+            <script>
+              setInterval(() => {
+                window.location.reload();
+              }, 5000);
+              setInterval(() => {
+                window.scrollTo(0, document.body.scrollHeight);
+              }, 5000);
+            </script>
+          </head>
+          <body>
+            <div id="banner">Public IP: ${publicIP}</div>
+            <pre>${lastLines}</pre>
+          </body>
+        </html>
+      `);
+    });
   });
 });
 
