@@ -7,12 +7,14 @@ const port = process.env.PORT || 4000; // Usa el puerto definido en la variable 
 app.get('/', (req, res) => {
   const logFilePath = '/home/node/server.log'; // Ruta del archivo de logs
 
-  exec('curl ifconfig.me', (err, stdout, stderr) => {
+  exec('curl https://api.myip.com', (err, stdout, stderr) => {
+    let bannerContent;
     if (err) {
-      return res.status(500).send('Error al obtener la IP pública');
+      bannerContent = `Error al obtener la IP pública: ${stderr}`;
+    } else {
+      const response = JSON.parse(stdout);
+      bannerContent = `Public IP: ${response.ip} (${response.country})`;
     }
-
-    const publicIP = stdout.trim();
 
     fs.readFile(logFilePath, 'utf8', (err, data) => {
       if (err) {
@@ -29,7 +31,8 @@ app.get('/', (req, res) => {
             <style>
               body { background-color: black; color: white; font-family: monospace; }
               pre { white-space: pre-wrap; word-wrap: break-word; }
-              #banner { background-color: grey; padding: 10px; text-align: center; }
+              #banner { background-color: grey; padding: 10px; text-align: center; position: fixed; top: 0; width: 100%; }
+              #content { margin-top: 50px; }
             </style>
             <script>
               setInterval(() => {
@@ -41,8 +44,10 @@ app.get('/', (req, res) => {
             </script>
           </head>
           <body>
-            <div id="banner">Public IP: ${publicIP}</div>
-            <pre>${lastLines}</pre>
+            <div id="banner">${bannerContent}</div>
+            <div id="content">
+              <pre>${lastLines}</pre>
+            </div>
           </body>
         </html>
       `);
