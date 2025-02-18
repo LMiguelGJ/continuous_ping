@@ -16,7 +16,7 @@ app.get('/', (req, res) => {
         const response = JSON.parse(stdout);
         bannerContent = `Public IP: ${response.ip} (${response.country})`;
       } catch (parseError) {
-        bannerContent = `Error al analizar la respuesta de la API: ${parseError.message}`;
+        bannerContent = `Error al analizar la respuesta de la API: ${parseError.message}. Respuesta del servidor: ${stdout}`;
       }
     }
 
