@@ -1,4 +1,4 @@
-const SocksScraper = require('socks-scraper');
+import SocksScraper from 'socks-scraper';
 // https://github.com/makarasty/socks-scraper/tree/main
 
 // Inicializar el scraper con una lista de sitios de proxies
