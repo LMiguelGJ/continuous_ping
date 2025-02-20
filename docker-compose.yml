@@ -9,7 +9,6 @@ services:
     volumes:
       - ./state:/home/node/.local/state/  # Asegúrate de que el directorio 'state' exista en tu máquina
       - ./server.log:/home/node/server.log  # Monta el archivo server.log
-      - ./proxy_scraper.js:/home/node/proxy_scraper.js  # Monta el archivo proxy_scraper.js
 
     ports:
       - "10000:10000"  # Mapea el puerto del contenedor al host
