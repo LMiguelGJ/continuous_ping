@@ -4,7 +4,7 @@ import { exec } from 'child_process';
 const app = express();
 const port = process.env.PORT || 4000; // Usa el puerto definido en la variable de entorno
 
-const proxyInfo = '<div>Nada por ahora</div>'
+var proxyInfo = '<div>Nada por ahora</div>'
 
 // Importar la función desde el archivo proxy_scraper.js
 import obtenerProxiesValidados from './proxy_scraper.js';
