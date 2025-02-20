@@ -4,6 +4,28 @@ import { exec } from 'child_process';
 const app = express();
 const port = process.env.PORT || 4000; // Usa el puerto definido en la variable de entorno
 
+
+
+
+
+// Importar la función desde el archivo proxy_scraper.js
+const obtenerProxiesValidados = require('./proxy_scraper');
+
+// Llamar a la función y manejar la promesa
+obtenerProxiesValidados().then(proxies => {
+    console.log('Mejor proxy SOCKS4:', proxies.bestSocks4);
+    console.log('Mejor proxy SOCKS5:', proxies.bestSocks5);
+    console.log('Todos los proxies SOCKS4:', proxies.allSocks4);
+    console.log('Todos los proxies SOCKS5:', proxies.allSocks5);
+}).catch(error => {
+    console.error('Error al obtener proxies:', error);
+});
+
+
+
+
+
+
 app.get('/', (req, res) => {
   const logFilePath = '/home/node/server.log'; // Ruta del archivo de logs
 
