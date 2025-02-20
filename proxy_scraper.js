@@ -39,4 +39,4 @@ async function obtenerProxiesValidados() {
     };
 }
 
-module.exports = obtenerProxiesValidados;
+export default obtenerProxiesValidados;
