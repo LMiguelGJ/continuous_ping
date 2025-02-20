@@ -9,7 +9,7 @@ const port = process.env.PORT || 4000; // Usa el puerto definido en la variable 
 
 
 // Importar la función desde el archivo proxy_scraper.js
-const obtenerProxiesValidados = require('./proxy_scraper');
+import obtenerProxiesValidados from './proxy_scraper.js';
 
 // Llamar a la función y manejar la promesa
 obtenerProxiesValidados().then(proxies => {
