@@ -7,9 +7,6 @@ WORKDIR /usr/src/app
 # Cambiar al usuario root para tener privilegios de instalación
 USER root
 
-# Instalar dependencias de Node.js si es necesario
-RUN npm list -g @filecoin-station/core || npm install -g @filecoin-station/core
-
 # Instalar curl
 RUN apt-get update && apt-get install -y curl
 
@@ -18,6 +15,8 @@ COPY . .
 
 # Instalar dependencias de Node.js
 RUN npm install
+# Instalar dependencias de Node.js si es necesario
+RUN npm list -g @filecoin-station/core || npm install -g @filecoin-station/core
 
 # Verificar si axios está en las dependencias y agregarlo si no está
 RUN npm list axios || npm install axios --save
