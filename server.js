@@ -8,7 +8,6 @@ app.get('/', async (req, res) => {
   const logFilePath = '/home/node/server.log'; // Ruta del archivo de logs
   let bannerContent = ''; // Asegúrate de que bannerContent esté definido
 
-  if (!ipDataFetched) { // Solo realiza la consulta si no se ha hecho antes
     try {
       const response = await axios.get('http://ip-api.com/json/');
       const data = response.data;
@@ -36,7 +35,6 @@ app.get('/', async (req, res) => {
     } catch (error) {
       bannerContent = `Error al obtener la IP pública: ${error.message}`;
     }
-  }
 
   fs.readFile(logFilePath, 'utf8', (err, data) => {
     if (err) {
