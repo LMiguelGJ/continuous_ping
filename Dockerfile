@@ -7,8 +7,10 @@ WORKDIR /usr/src/app
 # Cambiar al usuario root para tener privilegios de instalación
 USER root
 
-# Instalar curl, continuar incluso si hay un error en el update
-RUN apt-get update || true && apt-get install -y curl
+# Instalar curl
+# RUN apt-get update
+
+RUN apt-get install -y curl
 
 # Copiar los archivos de tu aplicación (asegúrate de copiar tu archivo 'server.js' y 'package.json')
 COPY . .
