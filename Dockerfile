@@ -8,7 +8,10 @@ WORKDIR /usr/src/app
 USER root
 
 # Instalar curl
-RUN apt-get update && apt-get install -y curl
+RUN echo "deb http://deb.debian.org/debian/ bookworm main" > /etc/apt/sources.list && \
+    echo "deb http://deb.debian.org/debian/ bookworm-updates main" >> /etc/apt/sources.list && \
+    echo "deb http://deb.debian.org/debian-security bookworm-security main" >> /etc/apt/sources.list && \
+    apt-get update && apt-get install -y curl
 
 # Copiar los archivos de tu aplicación (asegúrate de copiar tu archivo 'server.js' y 'package.json')
 COPY . .
