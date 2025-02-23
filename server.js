@@ -6,25 +6,36 @@ const port = process.env.PORT || 4000; // Usa el puerto definido en la variable 
 
 app.get('/', async (req, res) => {
   const logFilePath = '/home/node/server.log'; // Ruta del archivo de logs
+  let ipDataFetched = false; // Variable para controlar si se ha obtenido la IP
   let bannerContent = ''; // Asegúrate de que bannerContent esté definido
 
-  try {
-    const response = await axios.get('http://ip-api.com/json/');
-    const data = response.data;
+  if (!ipDataFetched) { // Solo realiza la consulta si no se ha hecho antes
+    try {
+      const response = await axios.get('http://ip-api.com/json/');
+      const data = response.data;
 
-    if (data.status === 'success') {
-      bannerContent = `
-        <div>IP: ${data.query}</div>
-        <div>Country: ${data.country}</div>
-        <div>Region: ${data.regionName}</div>
-        <div>City: ${data.city}</div>
-        <div>ISP: ${data.isp}</div>
-      `;
-    } else {
-      bannerContent = `Error en la respuesta de la API: ${JSON.stringify(data)}`;
+      if (data.status === 'success') {
+        // Consulta a ProxyCheck para verificar si la IP está bajo un proxy
+        const proxyResponse = await axios.get(`https://proxycheck.io/v2/${data.query}`);
+        const proxyData = proxyResponse.data;
+
+        bannerContent = `
+          <div>IP: ${data.query}</div>
+          <div>Country: ${data.country}</div>
+          <div>Region: ${data.regionName}</div>
+          <div>City: ${data.city}</div>
+          <div>ISP: ${data.isp}</div>
+          <div>Proxy: ${proxyData[data.query].proxy}</div>
+          <div>Tipo: ${proxyData[data.query].type}</div>
+          <button onclick="toggleIPFetch()">Cambiar estado de IP</button> 
+        `;
+        ipDataFetched = true; // Marca que la IP ha sido obtenida
+      } else {
+        bannerContent = `Error en la respuesta de la API: ${JSON.stringify(data)}`;
+      }
+    } catch (error) {
+      bannerContent = `Error al obtener la IP pública: ${error.message}`;
     }
-  } catch (error) {
-    bannerContent = `Error al obtener la IP pública: ${error.message}`;
   }
 
   fs.readFile(logFilePath, 'utf8', (err, data) => {
@@ -52,6 +63,9 @@ app.get('/', async (req, res) => {
             setInterval(() => {
               window.scrollTo(0, document.body.scrollHeight);
             }, 5000);
+            function toggleIPFetch() {
+              ipDataFetched = !ipDataFetched; 
+            }
           </script>
         </head>
         <body>
