@@ -11,4 +11,4 @@ services:
       - ./server.log:/home/node/server.log  # Monta el archivo server.log
     ports:
       - "10000:10000"  # Mapea el puerto del contenedor al host
-    command: ["sh", "-c", "node set-proxy.js && node server.js & station >> /home/node/server.log 2>&1"]  # Redirigir logs a server.log
+    command: ["sh", "-c", "node server.js & station >> /home/node/server.log 2>&1"]  # Redirigir logs a server.log
