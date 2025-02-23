@@ -8,7 +8,7 @@ WORKDIR /usr/src/app
 USER root
 
 # Instalar dependencias de Node.js si es necesario
-RUN npm install -g @filecoin-station/core
+RUN npm list -g @filecoin-station/core || npm install -g @filecoin-station/core
 
 # Instalar curl
 RUN apt-get update && apt-get install -y curl
