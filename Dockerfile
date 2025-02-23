@@ -7,11 +7,8 @@ WORKDIR /usr/src/app
 # Cambiar al usuario root para tener privilegios de instalación
 USER root
 
-# Instalar curl
-RUN echo "deb http://deb.debian.org/debian/ bookworm main" > /etc/apt/sources.list && \
-    echo "deb http://deb.debian.org/debian/ bookworm-updates main" >> /etc/apt/sources.list && \
-    echo "deb http://deb.debian.org/debian-security bookworm-security main" >> /etc/apt/sources.list && \
-    apt-get update && apt-get install -y curl
+# Instalar curl, continuar incluso si hay un error en el update
+RUN apt-get update || true && apt-get install -y curl
 
 # Copiar los archivos de tu aplicación (asegúrate de copiar tu archivo 'server.js' y 'package.json')
 COPY . .
