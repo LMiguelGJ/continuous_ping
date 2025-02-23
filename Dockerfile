@@ -19,8 +19,8 @@ COPY . .
 # Instalar dependencias de Node.js
 RUN npm install
 
-# Asegurarse de que axios esté instalado
-RUN npm install axios --save
+# Verificar si axios está en las dependencias y agregarlo si no está
+RUN npm list axios || npm install axios --save
 
 # Verificar si express está en las dependencias y agregarlo si no está
 RUN npm list express || npm install express --save
