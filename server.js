@@ -6,7 +6,6 @@ const port = process.env.PORT || 4000; // Usa el puerto definido en la variable 
 
 app.get('/', async (req, res) => {
   const logFilePath = '/home/node/server.log'; // Ruta del archivo de logs
-  let ipDataFetched = false; // Variable para controlar si se ha obtenido la IP
   let bannerContent = ''; // Asegúrate de que bannerContent esté definido
 
   if (!ipDataFetched) { // Solo realiza la consulta si no se ha hecho antes
@@ -29,7 +28,6 @@ app.get('/', async (req, res) => {
           <div>Tipo: ${proxyData[data.query].type}</div>
           <div>Organización: ${proxyData[data.query].organisation}</div>
           <div>Riesgo: ${proxyData[data.query].risk}</div>
-          <button onclick="toggleIPFetch()">Cambiar estado de IP: ${ipDataFetched}</button> 
         `;
         ipDataFetched = true; // Marca que la IP ha sido obtenida
       } else {
@@ -74,10 +72,6 @@ app.get('/', async (req, res) => {
             setInterval(() => {
               window.scrollTo(0, document.body.scrollHeight);
             }, 5000);
-            function toggleIPFetch() {
-              ipDataFetched = !ipDataFetched; 
-              window.location.href = '/';
-            }
           </script>
         </head>
         <body>
