@@ -27,7 +27,6 @@ app.get('/', async (req, res) => {
           <div>ISP: ${data.isp}</div>
           <div>Proxy: ${proxyData[data.query].proxy}</div>
           <div>Tipo: ${proxyData[data.query].type}</div>
-          <div>Proveedor: ${proxyData[data.query].provider}</div>
           <div>Organización: ${proxyData[data.query].organisation}</div>
           <div>Riesgo: ${proxyData[data.query].risk}</div>
           <button onclick="toggleIPFetch()">Cambiar estado de IP: ${ipDataFetched}</button> 
@@ -68,6 +67,7 @@ app.get('/', async (req, res) => {
             }, 5000);
             function toggleIPFetch() {
               ipDataFetched = !ipDataFetched; 
+              window.location.href = '/';
             }
           </script>
         </head>
