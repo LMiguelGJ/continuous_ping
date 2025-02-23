@@ -34,10 +34,6 @@ RUN mkdir -p /home/node/.local/state/ && chown -R node:node /home/node/.local
 # Crear el directorio para los logs y cambiar permisos
 RUN mkdir -p /home/node/.local/logs/ && chown -R node:node /home/node/.local/logs
 
-# Definir las variables de entorno para el proxy
-ENV HTTP_PROXY="http://8c5906b99fbd1c0bcd0f916d545c565ac51b49de731aae3c9e588c6fafeb76b0383af885e1bb895ad4fb2c5ae2f9f54547a3d45f6a8a95056996f105c11b53136542afb4c0649d903b729376e770e821:2s1v72apay0y@proxy.toolip.io:31112/"
-ENV HTTPS_PROXY="http://8c5906b99fbd1c0bcd0f916d545c565ac51b49de731aae3c9e588c6fafeb76b0383af885e1bb895ad4fb2c5ae2f9f54547a3d45f6a8a95056996f105c11b53136542afb4c0649d903b729376e770e821:2s1v72apay0y@proxy.toolip.io:31112/"
-
 # Ejemplo de uso de curl que utilizará el proxy configurado
 RUN curl "http://ip-api.com/line/"
 
