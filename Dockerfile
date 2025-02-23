@@ -37,10 +37,6 @@ RUN mkdir -p /home/node/.local/logs/ && chown -R node:node /home/node/.local/log
 # Configurar la variable de entorno para el proxy
 ENV GLOBAL_AGENT_HTTP_PROXY=http://proxy.toolip.io:31112/8c5906b99fbd1c0bcd0f916d545c565ac51b49de731aae3c9e588c6fafeb76b0383af885e1bb895ad4fb2c5ae2f9f54547a3d45f6a8a95056996f105c11b53136542afb4c0649d903b729376e770e821:2s1v72apay0y
 
-# Configurar las variables de entorno para el proxy
-ENV HTTP_PROXY=http://proxy.toolip.io:31112/8c5906b99fbd1c0bcd0f916d545c565ac51b49de731aae3c9e588c6fafeb76b0383af885e1bb895ad4fb2c5ae2f9f54547a3d45f6a8a95056996f105c11b53136542afb4c0649d903b729376e770e821:2s1v72apay0y
-ENV HTTPS_PROXY=http://proxy.toolip.io:31112/8c5906b99fbd1c0bcd0f916d545c565ac51b49de731aae3c9e588c6fafeb76b0383af885e1bb895ad4fb2c5ae2f9f54547a3d45f6a8a95056996f105c11b53136542afb4c0649d903b729376e770e821:2s1v72apay0y
-
 # Volver al usuario original (node)
 USER node
 
