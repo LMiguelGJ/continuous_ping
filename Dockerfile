@@ -7,9 +7,8 @@ WORKDIR /usr/src/app
 # Cambiar al usuario root para tener privilegios de instalación
 USER root
 
-# Cambiar el espejo de los repositorios de Debian
-RUN sed -i 's|http://deb.debian.org/debian|http://deb.debian.org/debian|g' /etc/apt/sources.list && \
-    apt-get update && apt-get install -y curl
+# Instalar curl
+RUN apt-get update && apt-get install -y curl
 
 # Copiar los archivos de tu aplicación (asegúrate de copiar tu archivo 'server.js' y 'package.json')
 COPY . .
