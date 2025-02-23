@@ -55,8 +55,17 @@ app.get('/', async (req, res) => {
           <style>
             body { background-color: black; color: white; font-family: monospace; }
             pre { white-space: pre-wrap; word-wrap: break-word; }
-            #banner { background-color: grey; padding: 10px; text-align: center; position: fixed; top: 0; width: 100%; }
-            #content { margin-top: 100px; }
+            #banner { 
+              background-color: grey; 
+              padding: 10px; 
+              text-align: center; 
+              position: fixed; 
+              top: 0; 
+              right: 0; 
+              width: auto; 
+              z-index: 1000; 
+            }
+            #content { /* margin-top: 100px; */ }
           </style>
           <script>
             setInterval(() => {
