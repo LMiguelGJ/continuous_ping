@@ -14,7 +14,7 @@ app.get('/', async (req, res) => {
 
       if (data.status === 'success') {
         // Consulta a ProxyCheck para verificar si la IP está bajo un proxy
-        const proxyResponse = await axios.get(`https://proxycheck.io/v2/${data.query}?vpn=1&risk=1&port=1&seen=1&days=7&tag=msg`);
+        const proxyResponse = await axios.get(`http://proxycheck.io/v2/${data.query}?vpn=1&risk=1&port=1&seen=1&days=7&tag=msg`);
         const proxyData = proxyResponse.data;
 
         bannerContent = `
