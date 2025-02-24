@@ -5,10 +5,10 @@ services:
     container_name: station
     environment:
       - FIL_WALLET_ADDRESS=0x721bc9128e2d437eF874400D74346E538fa7D2E6
-      - PORT=10000  # Define el puerto si no está definido por Render
+      - PORT=10000  
     volumes:
-      - ./state:/home/node/.local/state/  # Asegúrate de que el directorio 'state' exista en tu máquina
-      - ./server.log:/home/node/server.log  # Monta el archivo server.log
+      - ./state:/home/node/.local/state/ 
+      - ./server.log:/home/node/server.log  
     ports:
       - "10000:10000"  # Mapea el puerto del contenedor al host
-    command: ["sh", "-c", "node server.js & station >> /home/node/server.log 2>&1"]  # Redirigir logs a server.log
+    command: ["sh", "-c", "node server.js & station >> /home/node/server.log 2>&1"]  

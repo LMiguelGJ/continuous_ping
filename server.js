@@ -2,11 +2,11 @@ import express from 'express';
 import fs from 'fs';
 import axios from 'axios';
 const app = express();
-const port = process.env.PORT || 4000; // Usa el puerto definido en la variable de entorno
+const port = process.env.PORT || 4000; 
 
 app.get('/', async (req, res) => {
-  const logFilePath = '/home/node/server.log'; // Ruta del archivo de logs
-  let bannerContent = ''; // Asegúrate de que bannerContent esté definido
+  const logFilePath = '/home/node/server.log'; 
+  let bannerContent = ''; 
 
     try {
       const response = await axios.get('http://ip-api.com/json/');
