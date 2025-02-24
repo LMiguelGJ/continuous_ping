@@ -28,7 +28,6 @@ app.get('/', async (req, res) => {
           <div>Organización: ${proxyData[data.query].organisation}</div>
           <div>Riesgo: ${proxyData[data.query].risk}</div>
         `;
-        ipDataFetched = true; // Marca que la IP ha sido obtenida
       } else {
         bannerContent = `Error en la respuesta de la API: ${JSON.stringify(data)}`;
       }
