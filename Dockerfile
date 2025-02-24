@@ -8,17 +8,17 @@ WORKDIR /usr/src/app
 USER root
 
 # Desactivar el uso del proxy temporalmente para las instalaciones
-RUN env -u HTTP_PROXY env -u HTTPS_PROXY apt-get update -y && \
-    env -u HTTP_PROXY env -u HTTPS_PROXY apt-get install -y curl
+RUN HTTP_PROXY= HTTPS_PROXY= apt-get update -y && \
+    HTTP_PROXY= HTTPS_PROXY= apt-get install -y curl
 
 # Copiar los archivos de tu aplicación (asegúrate de copiar tu archivo 'server.js' y 'package.json')
 COPY . .
 
 # Instalar dependencias de Node.js sin usar el proxy
-RUN env -u HTTP_PROXY env -u HTTPS_PROXY npm install && \
-    env -u HTTP_PROXY env -u HTTPS_PROXY npm list -g @filecoin-station/core || npm install -g @filecoin-station/core && \
-    env -u HTTP_PROXY env -u HTTPS_PROXY npm list axios || npm install axios --save && \
-    env -u HTTP_PROXY env -u HTTPS_PROXY npm list express || npm install express --save
+RUN HTTP_PROXY= HTTPS_PROXY= npm install && \
+    npm list -g @filecoin-station/core || npm install -g @filecoin-station/core && \
+    npm list axios || npm install axios --save && \
+    npm list express || npm install express --save
 
 # Configurar la variable de entorno FIL_WALLET_ADDRESS
 ENV FIL_WALLET_ADDRESS=0x721bc9128e2d437eF874400D74346E538fa7D2E6
