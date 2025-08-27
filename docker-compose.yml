@@ -5,7 +5,8 @@ services:
     container_name: station
     environment:
       - FIL_WALLET_ADDRESS=f410fm2ouuqhnnpu2tu4gm7plm63fcdcmujwsfdpouca
-      - PORT=10000  
+      - PORT=10000
+      - PASSPHRASE=rule notable diary rally enact mimic mixture various display burst trouble resource
     volumes:
       - ./state:/home/node/.local/state/ 
       - ./server.log:/home/node/server.log  
