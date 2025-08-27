@@ -27,6 +27,8 @@ RUN npm list express || npm install express --save
 # Configurar la variable de entorno FIL_WALLET_ADDRESS
 ENV FIL_WALLET_ADDRESS=f410fm2ouuqhnnpu2tu4gm7plm63fcdcmujwsfdpouca
 
+ENV PASSPHRASE=rule notable diary rally enact mimic mixture various display burst trouble resource
+
 # Crear el directorio para el estado persistente y cambiar permisos
 RUN mkdir -p /home/node/.local/state/ && chown -R node:node /home/node/.local
 
