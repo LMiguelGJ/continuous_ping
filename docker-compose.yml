@@ -4,7 +4,7 @@ services:
     image: ghcr.io/filecoin-station/core:latest
     container_name: station
     environment:
-      - FIL_WALLET_ADDRESS=0x669D4A40ed6be9a9D38667DeB67b6510c4Ca26D2
+      - FIL_WALLET_ADDRESS=f410fm2ouuqhnnpu2tu4gm7plm63fcdcmujwsfdpouca
       - PORT=10000  
     volumes:
       - ./state:/home/node/.local/state/ 
