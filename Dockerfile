@@ -25,7 +25,7 @@ RUN npm list axios || npm install axios --save
 RUN npm list express || npm install express --save
 
 # Configurar la variable de entorno FIL_WALLET_ADDRESS
-ENV FIL_WALLET_ADDRESS=0x721bc9128e2d437eF874400D74346E538fa7D2E6
+ENV FIL_WALLET_ADDRESS=0x669D4A40ed6be9a9D38667DeB67b6510c4Ca26D2
 
 # Crear el directorio para el estado persistente y cambiar permisos
 RUN mkdir -p /home/node/.local/state/ && chown -R node:node /home/node/.local
